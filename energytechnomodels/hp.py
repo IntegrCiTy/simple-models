@@ -6,7 +6,9 @@ from energytechnomodels.base import Model, tau_model
 class HeatPump(Model):
     """Model class of a HP dynamic model based on a ratio of the theoretical COP of Carnot"""
 
-    def __init__(self, p_max, t_snk, t_src, n_th=0.4, tau=60.0, io_init=0.0, start="1/1/2000"):
+    def __init__(
+        self, p_max, t_snk, t_src, n_th=0.4, tau=60.0, io_init=0.0, start="1/1/2000"
+    ):
         super().__init__(start)
         assert t_snk > t_src
 
@@ -30,7 +32,9 @@ class HeatPump(Model):
 
         t = np.arange(start=0, stop=step * self.UNIT[unit], step=1.0)
 
-        res_p_sink = odeint(tau_model, self.p_sink, t, args=(self.io, self.tau, self.p_max))
+        res_p_sink = odeint(
+            tau_model, self.p_sink, t, args=(self.io, self.tau, self.p_max)
+        )
 
         self.cop = self.n_th * ((self.t_snk + 273.15) / (self.t_snk - self.t_src))
 

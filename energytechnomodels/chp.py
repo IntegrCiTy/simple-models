@@ -7,7 +7,13 @@ from energytechnomodels.base import Model, tau_model
 class CombinedHeatPower(Model):
     """Model class of a combined heat and power plant dynamic model."""
 
-    def __init__(self, p_nom_kw, load_init=1.0, fluid=Chemical('water', P=2E5, T=273.15+60), start="1/1/2000"):
+    def __init__(
+        self,
+        p_nom_kw,
+        load_init=1.0,
+        fluid=Chemical("water", P=2E5, T=273.15 + 60),
+        start="1/1/2000",
+    ):
         super().__init__(start)
 
         self.p_nom_kw = p_nom_kw
@@ -39,7 +45,9 @@ class CombinedHeatPower(Model):
         tau = {True: self.tau_up_s, False: self.tau_do_s}[run]
         load = {True: self.load, False: 0.0}[run]
 
-        res_p_fu_kw = odeint(tau_model, self.p_fu_kw, t, args=(load, tau, self.p_nom_kw))
+        res_p_fu_kw = odeint(
+            tau_model, self.p_fu_kw, t, args=(load, tau, self.p_nom_kw)
+        )
         self.p_fu_kw = round(res_p_fu_kw[-1][0], 3)
 
         self.p_el_kw = self.p_fu_kw * self.eff_el

@@ -4,7 +4,7 @@ from energytechnomodels.base import Model
 class Hysteresis(Model):
     """Model class of a hysteresis controller"""
 
-    def __init__(self, x_max=1.0, x_min=0.0, y_init=0, start='1/1/2000'):
+    def __init__(self, x_max=1.0, x_min=0.0, y_init=0, start="1/1/2000"):
         super().__init__(start)
         self.x_max = x_max
         self.x_min = x_min
