@@ -11,3 +11,4 @@ from energytechnomodels.chp import CombinedHeatPower
 from energytechnomodels.hp import HeatPump
 from energytechnomodels.ctrl import Hysteresis
 from energytechnomodels.indus import Bath
+from energytechnomodels.hexch import HeatExchanger
