@@ -10,6 +10,6 @@ def fix_create():
     return b
 
 
-def test_chp_step(fix_create):
+def test_bath_step(fix_create):
     b = fix_create
-    assert round(b.t_bath, 2) == 66.98
+    assert round(b.t_bath, 2) == 81.88

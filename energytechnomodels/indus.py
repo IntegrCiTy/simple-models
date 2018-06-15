@@ -5,17 +5,15 @@ from energytechnomodels.base import Model
 
 
 class Bath(Model):
-    UNIT = {"seconds": 1, "minutes": 60, "hours": 3600}
-    WATER = Chemical("water", P=1E5, T=273.15 + 70)
-
     def __init__(
-        self, vol, area, k=200.0, t_bath_init=50.0, fluid=WATER, start="1/1/2000"
+        self, vol, area, k=200.0, t_bath_init=50.0, fluid="water", start="1/1/2000"
     ):
         super().__init__(start)
         self.vol = vol  # [m3]
         self.A = area  # [m2]
         self.k = k  # [W/m2/K]
-        self.fluid = fluid
+        self.fluid = Chemical(fluid)
+        self.fluid.T = t_bath_init
 
         self.t_bath = t_bath_init
 
@@ -35,6 +33,8 @@ class Bath(Model):
 
     def step(self, step, unit="seconds"):
         super().step(step, unit)
+
+        self.fluid.T = self.t_bath + 273.15
 
         t = np.arange(start=0, stop=step * self.UNIT[unit], step=1.0)
 
